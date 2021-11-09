@@ -2,6 +2,7 @@ import { Button, message, notification } from 'antd';
 import defaultSettings from '../config/defaultSettings';
 const { pwa } = defaultSettings;
 const isHttps = document.location.protocol === 'https:';
+window.isDev = process.env.NODE_ENV === 'development';
 
 const clearCache = () => {
   // remove all caches

@@ -5,6 +5,36 @@ import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
 const { REACT_APP_ENV } = process.env;
+
+const CONFIG = {
+  local: {
+    domain: '/dev/api',
+    loginPath: '/user/login',
+    base: '/',
+    publicPath: '/',
+  },
+  dev: {
+    domain: 'https://test79.ubtrobot.com',
+    loginPath: 'https://test79.ubtrobot.com/webproject/operation-web/index.html',
+    base: '/webproject/operation-web/modules/tadpoleMS/dist/',
+    publicPath: '/webproject/operation-web/modules/tadpoleMS/dist/',
+  },
+  pre: {
+    domain: 'https://prerelease.ubtrobot.com',
+    loginPath: 'https://prerelease.ubtrobot.com/operation-web/index.html#/login',
+    base: '/operation-web/modules/tadpoleMS/dist/',
+    publicPath: '/operation-web/modules/tadpoleMS/dist/',
+  },
+  prod: {
+    domain: 'https://internal.ubtrobot.com',
+    loginPath: 'https://operation.ubtrobot.com/operationSystem-web/#/login',
+    base: '/operationSystem-web/modules/tadpoleMS/dist/',
+    publicPath: '/operationSystem-web/modules/tadpoleMS/dist/',
+  },
+};
+
+const CURCONFIG = CONFIG[REACT_APP_ENV || 'local'];
+
 export default defineConfig({
   hash: true,
   antd: {},
@@ -16,6 +46,10 @@ export default defineConfig({
     locale: true,
     siderWidth: 208,
     ...defaultSettings,
+  },
+  define: {
+    API_DOMAIN: CURCONFIG.domain,
+    LOGIN_PATH: CURCONFIG.loginPath,
   },
   dynamicImport: {
     loading: '@ant-design/pro-layout/es/PageLoading',
@@ -61,4 +95,6 @@ export default defineConfig({
   mfsu: {},
   webpack5: {},
   exportStatic: {},
+  base: CURCONFIG.base,
+  publicPath: CURCONFIG.publicPath,
 });

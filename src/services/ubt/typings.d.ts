@@ -64,8 +64,8 @@ declare namespace API {
   type LoginParams = {
     username?: string;
     password?: string;
-    autoLogin?: boolean;
-    type?: string;
+    captcha?: string;
+    crsfToken?: string;
   };
 
   type ErrorResponse = {
